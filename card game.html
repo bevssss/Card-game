@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cards game</title>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html{
+	font-family: 'Roboto', sans-serif;
+	background-color: #076324;
+	background-color:#BE90D4;
+	background-image: url("felt.png");
+  	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+#cards{
+	font-size:1px;
+	display: flex;
+	align-content: center;
+}
+#card1{
+	width: 73px;
+	height: 100px;
+	background-image: url("deck.gif");
+	background-position:-431px -400px;
+	margin:175px 0 0 492px;
+	}
+#card2{
+	width: 73px;
+	height: 100px;
+	background-image: url("deck.gif");
+	background-position:-431px -400px;
+	margin:200px 0 0 200px;
+	margin:175px 0 0 200px;
+	}
+#winner{
+	text-align: center;
+	margin: 20px;
+    font-size: 20px;
+    display: inline-block;
+}
+#again{
+	border: 1px solid black;
+		padding:10px;
+		font-size: 20px;
+		cursor: pointer;
+		background: yellow;
+    	color: red;
+    	border-radius: 12px;
+}
+#card1Draw{
+	width: 73px;
+	height: 100px;
+	}
+#card2Draw{
+	width: 73px;
+	height: 100px;
+	}
+#getWinner{
+	display:inline-block;
+		border: 1px solid black;
+		padding:10px;
+		font-size: 20px;
+		cursor: pointer;
+		background: yellow;
+    	color: red;
+    	border-radius: 12px;
+	}
+</style>
+</head>
+
+<body>
+<div id="game">
+	<div id="cards">
+		<div id="card1"><div id="card1Draw" class="draw">PICK CARD 1</div></div>
+		<div id="card2"><div id="card2Draw" class="draw">PICK CARD 2</div></div>
+	</div>
+</div>
+
+<div id="winner"><div id="getWinner" class="draw">Get Winner</div></div>
+
+<script>
+var ranks = ['A','K','Q','J','T','9','8','7','6','5','4','3','2'];
+var suites = ['D','H','S','C'];
+var card1;
+var card2;
+
+document.getElementById("card1Draw").addEventListener("click", card1Draw);
+document.getElementById("card2Draw").addEventListener("click", card2Draw);
+document.getElementById("getWinner").addEventListener("click", getWinner);
+
+function card1Draw(){
+card1 = ranks[Math.floor(Math.random()*ranks.length)];
+suite1 = suites[Math.floor(Math.random()*suites.length)];
+
+document.getElementById('card1').innerHTML = card1 + suite1;
+
+//deck gif: 936*500*/
+//var x=(((ranks.indexOf(card1)))*73)-936;//card width;
+var x;
+var y;
+if(card1=='A') x=0;
+if(card1=='2') x=864;
+if(card1=='3') x=792;
+if(card1=='4') x=720;
+if(card1=='5') x=648;
+if(card1=='6') x=576;
+if(card1=='7') x=504;
+if(card1=='8') x=432;
+if(card1=='9') x=360;
+if(card1=='T') x=288;
+if(card1=='J') x=216;
+if(card1=='Q') x=144;
+if(card1=='K') x=72;
+
+if(suite1=='D') y=-100;
+if(suite1=='H') y=0;
+if(suite1=='S') y=-300;
+if(suite1=='C') y=-200;
+
+//var x=(((ranks.indexOf(card1))+3)*144)-936;
+
+document.getElementById('card1').style.backgroundPosition = x +'px ' + y +'px';
+}
+
+
+function card2Draw(){
+card2 = ranks[Math.floor(Math.random()*ranks.length)];
+suite2 = suites[Math.floor(Math.random()*suites.length)];
+document.getElementById('card2').innerHTML =card2+suite2;
+
+var v;
+var w;
+if(card2=='A') v=0;
+if(card2=='2') v=864;
+if(card2=='3') v=792;
+if(card2=='4') v=720;
+if(card2=='5') v=648;
+if(card2=='6') v=576;
+if(card2=='7') v=504;
+if(card2=='8') v=432;
+if(card2=='9') v=360;
+if(card2=='T') v=288;
+if(card2=='J') v=216;
+if(card2=='Q') v=144;
+if(card2=='K') v=72;
+
+if(suite2=='D') w=-100;
+if(suite2=='H') w=0;
+if(suite2=='S') w=-300;
+if(suite2=='C') w=-200;
+
+//var x=(((ranks.indexOf(card1))+3)*144)-936;
+
+document.getElementById('card2').style.backgroundPosition = v +'px ' + w +'px';
+}
+function getWinner(){
+var a = ranks.indexOf(card1);
+var b = ranks.indexOf(card2);
+var c = suites.indexOf(suite1);
+var d = suites.indexOf(suite2);
+
+var winner ='';
+if (a>b) winner = 'Card 2 Wins';
+if (a<b) winner = 'Card 1 Wins';
+if (a==b && c>d) winner = 'Card 2 Wins!';
+if (a==b && c<d) winner = 'Card 1 Wins!';
+if (a==b && c==d) winner = "It's a Draw!";
+winner +='<br><div id="again" onclick="location.reload();">Click to Play Again</div>';
+document.getElementById('winner').innerHTML = winner;
+}
+</script>
+
+</body>
+</html>
